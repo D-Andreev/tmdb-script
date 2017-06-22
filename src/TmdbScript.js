@@ -660,8 +660,6 @@ module.exports = {
         });
 
         U.on(EVENTS.DOWNLOAD_NEW_MOVIES, (startId, endId) => {
-            //TODO: remove
-            endId = startId + 10;
             Logger.info({method: EVENTS.DOWNLOAD_NEW_MOVIES, startId, endId});
             U.downloadNewMoviesDetails(startId, endId);
         });
