@@ -1,0 +1,36 @@
+{
+  "name": "tmdb-script",
+  "version": "1.0.0",
+  "description": "A nodejs script to collect data from TMDB API and store it in local mongo database.",
+  "main": "./bin/tmdb-script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D-Andreev/tmdb-script.git"
+  },
+  "bin": {
+    "tmdb-script": "./bin/tmdb-script.js"
+  },
+  "keywords": [
+    "script",
+    "movies",
+    "tmdb",
+    "api",
+    "mongo"
+  ],
+  "author": "Dimitar Andreev <d.andreev90@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/D-Andreev/tmdb-script/issues"
+  },
+  "homepage": "https://github.com/D-Andreev/tmdb-script#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "mongoose": "^4.10.8",
+    "pino": "^4.6.0",
+    "request": "^2.81.0",
+    "steed": "^1.1.3"
+  }
+}
