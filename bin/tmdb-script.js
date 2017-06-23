@@ -8,7 +8,7 @@ const program = require('commander');
 const TmdbScript = require('../src/TmdbScript');
 
 program
-    .version('1.0.4')
+    .version('1.0.5')
     .option('-c, --config', 'A file path to the json config file.')
     .option('-t, --transfer-data', 'Transfer data from temporary to main collections.')
     .parse(process.argv);

@@ -3,6 +3,9 @@ tmdb-script
 [themoviedb.org](https://www.themoviedb.org/) offers an API to get movies data. This is a node console application to request data from [TMDb API](https://developers.themoviedb.org/4/getting-started) and store it in a local mongo database.
 
 
+[![NPM](https://nodei.co/npm/tmdb-script.png?downloads=true&downloadRank=true)](https://nodei.co/npm/tmdb-script/)
+
+
 * **[About TMDb API](#about-tmdb-api)**
 * **[Usage](#usage)**
 * **[Contributing](#Contributing)**
