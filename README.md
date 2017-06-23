@@ -15,6 +15,8 @@ This product uses the TMDb API but is not endorsed or certified by TMDb. You can
 
 <a name="usage"></a>
 # Usage
+
+![usage](http://i.imgur.com/4e2OUZb.gif)
 In order to use the script first you need:
   - API key from tmdb.
   - Mongo database installed
@@ -37,6 +39,13 @@ To use the script you need to make a `config.json` file like this:
 }
 ```
   Start the script with `tmdb-script -c path/to/config.json` and follow the instructions. For help `tmdb-script --help`. 
+  
+  Steps:
+  
+- First the script will check if you have existing movies in your main movies collection.
+- Then it will get the latest id from TMDb API and show you how much new movies are there.
+- By accepting to download now, the script will download all new movies and data related to them (images, videos, keywords, similar movies etc...) and all people which are in the cast or crew of the new movies and not exists already. This data will be stored in the temporary collections.
+- After everything is downloaded you will be given an option to transfer the new data to your main collections.
 
 <a name="Contributing"></a>
 ### Contributing
