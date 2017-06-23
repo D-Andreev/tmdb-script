@@ -168,96 +168,6 @@ module.exports = {
                 });
             }
 
-            _getMovieDetails(id, endId, done) {
-                Logger.info(`${id}/${endId} Downloading...`);
-                tmdbApi.getMovieDetails(id, (err, movie) => {
-                    if (err) return done(err);
-                    if (!movie || !movie.id) {
-                        Logger.warn({
-                            method: '_getMovieDetails.TmdbNoSuchResource',
-                            movie
-                        });
-                        return done();
-                    }
-                    this._insertNewMovie(movie, endId, done);
-                });
-            }
-
-            _getMovieImages(index, id, endIndex, done) {
-                Logger.info(`${index}/${endIndex} Downloading images for ${id}...`);
-                tmdbApi.getMovieImages(id, (err, images) => {
-                    if (err) return done(err);
-                    if (!images || !images.id) {
-                        Logger.warn({
-                            method: '_getMovieImages.TmdbErrorGetImages',
-                            images
-                        });
-                        return done();
-                    }
-                    this._insertImages(id, images, index, endIndex, done);
-                });
-            }
-
-            _getMovieVideos(index, id, endIndex, done) {
-                Logger.info(`${index}/${endIndex} Downloading videos for ${id}...`);
-                tmdbApi.getMovieVideos(id, (err, videos) => {
-                    if (err) return done(err);
-                    if (!videos || !videos.id) {
-                        Logger.warn({
-                            method: '_getMovieVideos.TmdbErrorGetVideos',
-                            videos
-                        });
-                        return done();
-                    }
-                    this._insertVideos(id, videos, index, endIndex, done);
-                });
-            }
-
-            _getMovieKeywords(index, id, endIndex, done) {
-                Logger.info(`${index}/${endIndex} Downloading keywords for ${id}...`);
-                tmdbApi.getMovieKeywords(id, (err, keywords) => {
-                    if (err) return done(err);
-                    if (!keywords || !keywords.id) {
-                        Logger.warn({
-                            method: '_getMovieKeywords.TmdbErrorGetKeywords',
-                            keywords
-                        });
-                        return done();
-                    }
-                    this._insertKeywords(id, keywords, index, endIndex, done);
-                });
-            }
-
-            _getMovieSimilar(index, id, endIndex, done) {
-                Logger.info(`${index}/${endIndex} Downloading similar for ${id}...`);
-                tmdbApi.getMovieSimilar(id, (err, similar) => {
-                    if (err) return done(err);
-                    if (!similar || !similar.results) {
-                        Logger.warn({
-                            method: '_getMovieSimilar.TmdbErrorGetSimilar',
-                            similar
-                        });
-                        return done();
-                    }
-                    this._insertSimilar(id, similar.results, index, endIndex, done);
-                });
-            }
-
-            _getMovieCredits(index, id, endIndex, done) {
-                Logger.info(`${index}/${endIndex} Downloading credits for ${id}...`);
-                tmdbApi.getMovieCredits(id, (err, credits) => {
-                    if (err) return done(err);
-                    if (!credits) {
-                        Logger.warn({
-                            method: '_getMovieCredits.TmdbErrorGetCredits',
-                            credits
-                        });
-                        return done();
-                    }
-                    this._insertCredits(id, credits, index, endIndex, done);
-                });
-            }
-
             _getPerson(index, id, endIndex, done) {
                 Logger.info(`${index}/${endIndex} Downloading person with id ${id}...`);
                 tmdbApi.getPersonDetails(id, (err, person) => {
@@ -280,7 +190,7 @@ module.exports = {
                     ticksFnsLength: ticksFns.length
                 });
 
-                function onDownloaded(err, res) {
+                function onDownloaded(err) {
                     if (err && err instanceof Error) return allDone(err);
                     callback(i, ticksFns, allDone, callback);
                 }
@@ -320,6 +230,96 @@ module.exports = {
                 }
 
                 return ticksFns;
+            }
+
+            getMovieDetails(id, endId, done) {
+                Logger.info(`${id}/${endId} Downloading...`);
+                tmdbApi.getMovieDetails(id, (err, movie) => {
+                    if (err) return done(err);
+                    if (!movie || !movie.id) {
+                        Logger.warn({
+                            method: 'getMovieDetails.TmdbNoSuchResource',
+                            movie
+                        });
+                        return done();
+                    }
+                    this._insertNewMovie(movie, endId, done);
+                });
+            }
+
+            getMovieImages(index, id, endIndex, done) {
+                Logger.info(`${index}/${endIndex} Downloading images for ${id}...`);
+                tmdbApi.getMovieImages(id, (err, images) => {
+                    if (err) return done(err);
+                    if (!images || !images.id) {
+                        Logger.warn({
+                            method: 'getMovieImages.TmdbErrorGetImages',
+                            images
+                        });
+                        return done();
+                    }
+                    this._insertImages(id, images, index, endIndex, done);
+                });
+            }
+
+            getMovieVideos(index, id, endIndex, done) {
+                Logger.info(`${index}/${endIndex} Downloading videos for ${id}...`);
+                tmdbApi.getMovieVideos(id, (err, videos) => {
+                    if (err) return done(err);
+                    if (!videos || !videos.id) {
+                        Logger.warn({
+                            method: 'getMovieVideos.TmdbErrorGetVideos',
+                            videos
+                        });
+                        return done();
+                    }
+                    this._insertVideos(id, videos, index, endIndex, done);
+                });
+            }
+
+            getMovieKeywords(index, id, endIndex, done) {
+                Logger.info(`${index}/${endIndex} Downloading keywords for ${id}...`);
+                tmdbApi.getMovieKeywords(id, (err, keywords) => {
+                    if (err) return done(err);
+                    if (!keywords || !keywords.id) {
+                        Logger.warn({
+                            method: 'getMovieKeywords.TmdbErrorGetKeywords',
+                            keywords
+                        });
+                        return done();
+                    }
+                    this._insertKeywords(id, keywords, index, endIndex, done);
+                });
+            }
+
+            getMovieSimilar(index, id, endIndex, done) {
+                Logger.info(`${index}/${endIndex} Downloading similar for ${id}...`);
+                tmdbApi.getMovieSimilar(id, (err, similar) => {
+                    if (err) return done(err);
+                    if (!similar || !similar.results) {
+                        Logger.warn({
+                            method: 'getMovieSimilar.TmdbErrorGetSimilar',
+                            similar
+                        });
+                        return done();
+                    }
+                    this._insertSimilar(id, similar.results, index, endIndex, done);
+                });
+            }
+
+            getMovieCredits(index, id, endIndex, done) {
+                Logger.info(`${index}/${endIndex} Downloading credits for ${id}...`);
+                tmdbApi.getMovieCredits(id, (err, credits) => {
+                    if (err) return done(err);
+                    if (!credits) {
+                        Logger.warn({
+                            method: 'getMovieCredits.TmdbErrorGetCredits',
+                            credits
+                        });
+                        return done();
+                    }
+                    this._insertCredits(id, credits, index, endIndex, done);
+                });
             }
 
             start() {
@@ -377,7 +377,7 @@ module.exports = {
                         for (let j = i; j < i + REQUESTS_PER_TICK; j++) {
                             if (j > endId) break;
                             currentTickFns.push(
-                                $this._getMovieDetails.bind($this, j, endId)
+                                $this.getMovieDetails.bind($this, j, endId)
                             );
                         }
                         if (currentTickFns.length) ticksFns.push(currentTickFns);
@@ -404,9 +404,9 @@ module.exports = {
                 });
             }
 
-            downloadImages() {
+            downloadMovieData(dataType, getDataFn, endEvent) {
                 let $this = this;
-                Logger.info({method: 'downloadImages'});
+                Logger.info({method: 'downloadMovieData', dataType});
 
                 let movieIds = [];
                 NewMovie
@@ -416,110 +416,14 @@ module.exports = {
                         movieIds.push(movie.id);
                     })
                     .on('close', () => {
-                        Logger.info(`Found ${movieIds.length} movie ids in db. Starting to download images...`);
+                        Logger.info(`Found ${movieIds.length} movie ids in db. Starting to download ${dataType}...`);
 
-                        let ticksFns = $this._getTicksFunctions(movieIds, $this._getMovieImages);
+                        let ticksFns = $this._getTicksFunctions(movieIds, getDataFn);
                         $this._downloadPerTick(0, ticksFns, done, $this._tickDownloadedCallback.bind($this));
 
                         function done(err) {
                             if (err) $this.emit(EVENTS.ERROR, err.message);
-                            $this.emit(EVENTS.IMAGES_DOWNLOADED);
-                        }
-                    });
-            }
-
-            downloadVideos() {
-                let $this = this;
-                Logger.info({method: 'downloadVideos'});
-
-                let movieIds = [];
-                NewMovie
-                    .find({}, {_id: 0, id: 1})
-                    .cursor()
-                    .on('data', (movie) => {
-                        movieIds.push(movie.id);
-                    })
-                    .on('close', () => {
-                        Logger.info(`Found ${movieIds.length} movie ids in db. Starting to download videos...`);
-
-                        let ticksFns = $this._getTicksFunctions(movieIds, $this._getMovieVideos);
-                        $this._downloadPerTick(0, ticksFns, done, $this._tickDownloadedCallback.bind($this));
-
-                        function done(err) {
-                            if (err) $this.emit(EVENTS.ERROR, err.message);
-                            $this.emit(EVENTS.VIDEOS_DOWNLOADED);
-                        }
-                    });
-            }
-
-            downloadKeywords() {
-                let $this = this;
-                Logger.info({method: 'downloadKeywords'});
-
-                let movieIds = [];
-                NewMovie
-                    .find({}, {_id: 0, id: 1})
-                    .cursor()
-                    .on('data', (movie) => {
-                        movieIds.push(movie.id);
-                    })
-                    .on('close', () => {
-                        Logger.info(`Found ${movieIds.length} movie ids in db. Starting to download keywords...`);
-
-                        let ticksFns = $this._getTicksFunctions(movieIds, $this._getMovieKeywords);
-                        $this._downloadPerTick(0, ticksFns, done, $this._tickDownloadedCallback.bind($this));
-
-                        function done(err) {
-                            if (err) $this.emit(EVENTS.ERROR, err.message);
-                            $this.emit(EVENTS.KEYWORDS_DOWNLOADED);
-                        }
-                    });
-            }
-
-            downloadSimilar() {
-                let $this = this;
-                Logger.info({method: 'downloadSimilar'});
-
-                let movieIds = [];
-                NewMovie
-                    .find({}, {_id: 0, id: 1})
-                    .cursor()
-                    .on('data', (movie) => {
-                        movieIds.push(movie.id);
-                    })
-                    .on('close', () => {
-                        Logger.info(`Found ${movieIds.length} movie ids in db. Starting to download similar...`);
-
-                        let ticksFns = $this._getTicksFunctions(movieIds, $this._getMovieSimilar);
-                        $this._downloadPerTick(0, ticksFns, done, $this._tickDownloadedCallback.bind($this));
-
-                        function done(err) {
-                            if (err) $this.emit(EVENTS.ERROR, err.message);
-                            $this.emit(EVENTS.SIMILAR_DOWNLOADED);
-                        }
-                    });
-            }
-
-            downloadCredits() {
-                let $this = this;
-                Logger.info({method: 'downloadCredits'});
-
-                let movieIds = [];
-                NewMovie
-                    .find({}, {_id: 0, id: 1})
-                    .cursor()
-                    .on('data', (movie) => {
-                        movieIds.push(movie.id);
-                    })
-                    .on('close', () => {
-                        Logger.info(`Found ${movieIds.length} movie ids in db. Starting to download credits...`);
-
-                        let ticksFns = $this._getTicksFunctions(movieIds, $this._getMovieCredits);
-                        $this._downloadPerTick(0, ticksFns, done, $this._tickDownloadedCallback.bind($this));
-
-                        function done(err) {
-                            if (err) $this.emit(EVENTS.ERROR, err.message);
-                            $this.emit(EVENTS.CREDITS_DOWNLOADED);
+                            $this.emit(endEvent);
                         }
                     });
             }
@@ -567,7 +471,7 @@ module.exports = {
                                 let rowIndex = 0;
                                 for (let i = 0; i <= ticksCount; i++) {
                                     let currentTickFns = [];
-                                            for (let j = rowIndex; j < rowIndex + REQUESTS_PER_TICK; j++) {
+                                    for (let j = rowIndex; j < rowIndex + REQUESTS_PER_TICK; j++) {
                                         if (j >= peopleIdsLength) break;
                                         currentTickFns.push(
                                             $this._getPerson.bind($this, j, people[j], peopleIdsLength)
@@ -666,27 +570,27 @@ module.exports = {
 
         U.on(EVENTS.NEW_MOVIES_DETAILS_DOWNLOADED, (err) => {
             Logger.error({method: EVENTS.NEW_MOVIES_DETAILS_DOWNLOADED, err});
-            U.downloadImages();
+            U.downloadMovieData('images', U.getMovieImages, EVENTS.IMAGES_DOWNLOADED);
         });
 
         U.on(EVENTS.IMAGES_DOWNLOADED, (err) => {
             Logger.error({method: EVENTS.IMAGES_DOWNLOADED, err});
-            U.downloadVideos();
+            U.downloadMovieData('videos', U.getMovieVideos, EVENTS.VIDEOS_DOWNLOADED);
         });
 
         U.on(EVENTS.VIDEOS_DOWNLOADED, (err) => {
             Logger.error({method: EVENTS.VIDEOS_DOWNLOADED, err});
-            U.downloadKeywords();
+            U.downloadMovieData('keywords', U.getMovieKeywords, EVENTS.KEYWORDS_DOWNLOADED);
         });
 
         U.on(EVENTS.KEYWORDS_DOWNLOADED, (err) => {
             Logger.error({method: EVENTS.KEYWORDS_DOWNLOADED, err});
-            U.downloadSimilar();
+            U.downloadMovieData('similar', U.getMovieSimilar, EVENTS.SIMILAR_DOWNLOADED);
         });
 
         U.on(EVENTS.SIMILAR_DOWNLOADED, (err) => {
             Logger.error({method: EVENTS.SIMILAR_DOWNLOADED, err});
-            U.downloadCredits();
+            U.downloadMovieData('credits', U.getMovieSimilar, EVENTS.CREDITS_DOWNLOADED);
         });
 
         U.on(EVENTS.CREDITS_DOWNLOADED, (err) => {
