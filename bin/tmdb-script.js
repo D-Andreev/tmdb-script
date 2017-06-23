@@ -9,7 +9,7 @@ const TmdbScript = require('../src/TmdbScript');
 const {STEP} = require('../src/Constants');
 
 program
-    .version('1.0.8')
+    .version('1.0.9')
     .option('-c, --config', 'A file path to the json config file.')
     .option('-t, --transfer-data', 'Transfer data from temporary to main collections.')
     .option('-s, --step', 'Start from a specific step i.e. `movies`, `images`, `videos`, `keywords`, `similar`, `credits`, `people`')

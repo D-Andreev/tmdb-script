@@ -1,6 +1,6 @@
 {
   "name": "tmdb-script",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A nodejs script to collect data from TMDB API and store it in local mongo database.",
   "main": "./bin/tmdb-script.js",
   "scripts": {
