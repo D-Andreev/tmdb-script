@@ -10,14 +10,14 @@ const SteedState = require('./SteedState');
 const Logger = require('./Logger');
 const {
     QUERY_TIMEOUT, EVENTS, POOL_SIZE, REQUESTS_PER_TICK,
-    TICK_TIMEOUT, AFFIRMATIVE_ANSWER, SEPARATOR_SYMBOL, SEPARATOR_SYMBOLS_COUNT
+    TICK_TIMEOUT, AFFIRMATIVE_ANSWER, SEPARATOR_SYMBOL, SEPARATOR_SYMBOLS_COUNT, STEP
 } = require('./Constants');
 const TmdbApi = require('./TmdbApi');
 const {MovieSchema, PersonSchema} = require('./schemas');
 
 
 module.exports = {
-    start: (config, transferData) => {
+    start: (config, step, transferData) => {
         const API_KEY = config.tmdbApiKey;
         const LINE_SEPARATOR = SEPARATOR_SYMBOL.repeat(SEPARATOR_SYMBOLS_COUNT);
         const opts = {
@@ -627,7 +627,32 @@ module.exports = {
         mongoose.connection.on('open', () => {
             Logger.info(`Connected to ${dbServer}...`);
             if (transferData) return U.emit(EVENTS.TRANSFER_NEW_DATA);
-            U.emit(EVENTS.START);
+            switch (step) {
+                case STEP.MOVIES:
+                    U.emit(EVENTS.START);
+                    break;
+                case STEP.IMAGES:
+                    U.emit(EVENTS.NEW_MOVIES_DETAILS_DOWNLOADED);
+                    break;
+                case STEP.VIDEOS:
+                    U.emit(EVENTS.IMAGES_DOWNLOADED);
+                    break;
+                case STEP.KEYWORDS:
+                    U.emit(EVENTS.VIDEOS_DOWNLOADED);
+                    break;
+                case STEP.SIMILAR:
+                    U.emit(EVENTS.KEYWORDS_DOWNLOADED);
+                    break;
+                case STEP.CREDITS:
+                    U.emit(EVENTS.SIMILAR_DOWNLOADED);
+                    break;
+                case STEP.PEOPLE:
+                    U.emit(EVENTS.CREDITS_DOWNLOADED);
+                    break;
+                default:
+                    u.emit(EVENTS.START);
+                    break;
+            }
         });
     }
 };

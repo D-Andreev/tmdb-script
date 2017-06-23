@@ -23,5 +23,14 @@ module.exports = {
         NEW_DATA_TRANSFERRED: 'new-data-transferred',
         ERROR: 'error',
         EXIT: 'exit'
+    },
+    STEP: {
+        MOVIES: 'movies',
+        IMAGES: 'images',
+        VIDEOS: 'videos',
+        KEYWORDS: 'keywords',
+        CREDITS: 'credits',
+        SIMILAR: 'similar',
+        PEOPLE: 'people'
     }
 };

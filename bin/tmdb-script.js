@@ -6,14 +6,16 @@
 const fs = require('fs');
 const program = require('commander');
 const TmdbScript = require('../src/TmdbScript');
+const {STEP} = require('../src/Constants');
 
 program
-    .version('1.0.7')
+    .version('1.0.8')
     .option('-c, --config', 'A file path to the json config file.')
     .option('-t, --transfer-data', 'Transfer data from temporary to main collections.')
+    .option('-s, --step', 'Start from a specific step i.e. `movies`, `images`, `videos`, `keywords`, `similar`, `credits`, `people`')
     .parse(process.argv);
 
-let {transferData, config} = program;
+let {transferData, config, step} = program;
 if (!config) throw new Error('Invalid config file path.');
 config = program.args[0];
 if (!fs.existsSync(config)) throw new Error('Invalid config file path.');
@@ -41,4 +43,5 @@ if (!configObject.hasOwnProperty('tmpPeopleCollection') || !configObject.tmpPeop
     throw new Error('Invalid temporary people collection passed.');
 }
 
-TmdbScript.start(configObject, transferData);
+let targetStep = program.hasOwnProperty('step') ? program.args[1] : STEP.MOVIES;
+TmdbScript.start(configObject, targetStep, transferData);
