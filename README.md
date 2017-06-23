@@ -41,13 +41,16 @@ To use the script you need to make a `config.json` file like this:
 	"tmpPeopleCollection": "newperson"
 }
 ```
-  Start the script with `tmdb-script -c path/to/config.json` and follow the instructions. For help `tmdb-script --help`. 
+  Start the script with:
+
+  - `tmdb-script -c path/to/config.json`
+  - For help `tmdb-script --help`
   
   Steps:
   
 - First the script will check if you have existing movies in your main movies collection.
 - Then it will get the latest id from TMDb API and show you how much new movies are there.
-- By accepting to download now, the script will download all new movies and data related to them (images, videos, keywords, similar movies etc...) and all people which are in the cast or crew of the new movies and not exists already. This data will be stored in the temporary collections.
+- By accepting to download now, the script will download all new movies and data related to them (images, videos, keywords, similar movies etc...) and all people which are in the cast or crew of the new movies and not exists already. This data will be stored in the temporary collections. Bear in mind that the script will make 40 requests and them sleep for 10 seconds. This is because of the max requests limitation from TMDb API.
 - After everything is downloaded you will be given an option to transfer the new data to your main collections.
 
 <a name="Contributing"></a>
