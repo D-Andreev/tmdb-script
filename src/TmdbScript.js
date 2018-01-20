@@ -590,7 +590,7 @@ module.exports = {
 
         U.on(EVENTS.SIMILAR_DOWNLOADED, (err) => {
             Logger.error({method: EVENTS.SIMILAR_DOWNLOADED, err});
-            U.downloadMovieData('credits', U.getMovieSimilar, EVENTS.CREDITS_DOWNLOADED);
+            U.downloadMovieData('credits', U.getMovieCredits, EVENTS.CREDITS_DOWNLOADED);
         });
 
         U.on(EVENTS.CREDITS_DOWNLOADED, (err) => {
